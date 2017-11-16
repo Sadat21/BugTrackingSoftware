@@ -1,20 +1,30 @@
 import java.util.Vector;
 import java.util.ArrayList;
 
-public class Developer implements Subject{
+public class Developer extends User implements Subject{
     private Vector<Bug> assignedBugs;
     private int developerID;
     private String username;
     private String password;
     private ArrayList<Observer> observers;
 
-    public void updateBug(Bug bug, String updateStatus){}
-    public void reportFixedBug(Bug bug){}
+    public void updateBug(Bug bug, String updateStatus){
+        bug.setBugStatus(updateStatus);
+    }
+    public void reportFixedBug(Bug bug){
+        bug.setFixed(true);
+        //bug.setFixDate();
+    }
     public void browseAssignments(){}
-    public void browseAllBugs(){}
-    public void reportABug(String name, String description){}
-    public void registerObserver(Observer o){}
-    public void removeObserver(Observer o){}
+
+    public void registerObserver(Observer o){
+        observers.add(o);
+        for (int i = 0; i < assignedBugs.size(); i++)
+            o.update(assignedBugs.elementAt(i).getBugStatus(), assignedBugs.elementAt(i).getBugID() );
+    }
+    public void removeObserver(Observer o){
+        observers.remove(o);
+    }
     public void notifyAllObservers(){}
 
     public Vector<Bug> getAssignedBugs() {

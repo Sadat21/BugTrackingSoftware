@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 
-public class ProjectManager implements Observer{
+public class ProjectManager extends User implements Observer{
 
     private String username;
     private String password;
     private int managerID;
     private ArrayList<Subject> subjects;
 
-    public void browseAllBugs() {}
     public void browseBugReports(){}
     public void approveBugReport(Bug reportedBug){}
     public void addDeveloper(String username, String password){}
