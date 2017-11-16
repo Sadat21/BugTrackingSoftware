@@ -1,5 +1,9 @@
 import java.util.Date;
 
+/**
+ * Created by Sadat Msi on 11/12/2017.
+ * and Mark & Harjee
+ */
 public class Bug {
     private String name;
     private Date date;
