@@ -2,6 +2,9 @@
  * This class is used to access the database (which is just a series of text files)
  * Created by Harjee on 2017-11-16.
  */
+
+
+
 public class DatabaseController {
 
     public void isBugInDB(Bug checkedBug)
