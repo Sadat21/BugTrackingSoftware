@@ -40,7 +40,7 @@ public class DatabaseController {
         }
         catch(IOException e)
         {
-            System.out.println("Error occurred while trying to read from the loginInfo.txt file");
+            System.out.println("Error occurred while trying to read from the bug.txt file");
         }
 
         if(exists)
@@ -110,9 +110,47 @@ public class DatabaseController {
 
     }
 
-    public boolean verifyLogin(String username, String password)
+    public boolean verifyDeveloperLogin(String username, String password)
     {
-        fileInput
+        try {
+            fileInput = new BufferedReader(new FileReader("./Data/devLogin.txt"));
+        }
+        catch(IOException e) {
+            System.out.println("Error occurred while trying to open devLogin.txt");
+        }
+
+
+
+        return false;
+    }
+
+    public boolean verifyManagerLogin(String username, String password)
+    {
+        try {
+            fileInput = new BufferedReader(new FileReader("./Data/managerLogin.txt"));
+        }
+        catch(IOException e) {
+            System.out.println("Error occurred while trying to open managerLogin.txt");
+        }
+
+        String input;
+
+        // Find this manager in the database
+        try {
+            while ((input = fileInput.readLine()) != null) {
+                String[] parsed = input.split("\t");
+
+                if(parsed[0].equals(username) && parsed[1].equals(password))
+                {
+                    return true;
+                }
+            }
+        }
+        catch(IOException e)
+        {
+            System.out.println("Error occurred while trying to read from the managerLogin.txt file");
+        }
+
         return false;
     }
 }
