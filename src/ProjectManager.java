@@ -51,11 +51,13 @@ public class ProjectManager extends User implements Observer{
     }
 
     public void removeFixedBug(Bug bug){
-
+        
         generateReport(bug);
     }
 
-    public void update(String status) {}
+    public void update(String status) {
+        //
+    }
 
     void generateReport(Bug bugReportedOn) {
 

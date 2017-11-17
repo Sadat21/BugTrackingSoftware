@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Developer extends User implements Subject{
 
+    Vector<Bug> assignedBugs;
+
     /**
      *  The ID of the developer
      */
@@ -45,7 +47,8 @@ public class Developer extends User implements Subject{
 
     public void registerObserver(Observer o){
         observers.add(o);
-        for (int i = 0; i < assignedBugs.size(); i++) {
+
+        for (int i = 0; i < assignedBugs.size(); i++ ) {
             o.update(assignedBugs.elementAt(i).getBugStatus());
         }
     }
@@ -53,7 +56,16 @@ public class Developer extends User implements Subject{
         observers.remove(o);
     }
 
-    public void notifyAllObservers(){}
+    public void notifyAllObservers(){
+        for(int i = 0; i < observers.size(); i++)
+        {
+            Observer o = observers.get(i);
+
+            for (int j = 0; j < assignedBugs.size(); j++ ) {
+                o.update(assignedBugs.elementAt(i).getBugStatus());
+            }
+        }
+    }
 
     /*
         Getters & Setters below
