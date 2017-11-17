@@ -1,5 +1,6 @@
 import java.util.Vector;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Developer extends User implements Subject{
     private Vector<Bug> assignedBugs;
@@ -11,20 +12,27 @@ public class Developer extends User implements Subject{
     public void updateBug(Bug bug, String updateStatus){
         bug.setBugStatus(updateStatus);
     }
+
     public void reportFixedBug(Bug bug){
         bug.setFixed(true);
-        //bug.setFixDate();
+        Date todayDate = new Date();
+        bug.setFixDate(todayDate);
+        assignedBugs.remove(bug);
     }
-    public void browseAssignments(){}
+    public void browseAssignments(){
+
+    }
 
     public void registerObserver(Observer o){
         observers.add(o);
-        for (int i = 0; i < assignedBugs.size(); i++)
-            o.update(assignedBugs.elementAt(i).getBugStatus(), assignedBugs.elementAt(i).getBugID() );
+        for (int i = 0; i < assignedBugs.size(); i++) {
+            o.update(assignedBugs.elementAt(i).getBugStatus());
+        }
     }
     public void removeObserver(Observer o){
         observers.remove(o);
     }
+
     public void notifyAllObservers(){}
 
     public Vector<Bug> getAssignedBugs() {

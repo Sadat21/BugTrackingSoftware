@@ -1,3 +1,3 @@
 public interface Observer {
-    void update(String bugInfo, int bugID);
+    void update(String status);
 }

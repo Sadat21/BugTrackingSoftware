@@ -100,7 +100,7 @@ public class DatabaseController {
 
     }
 
-    public void removeDeveloperFromDB(int developerID)
+    public void removeDeveloperFromDB(Developer checkedDev)
     {
 
     }
