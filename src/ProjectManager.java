@@ -1,4 +1,6 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.io.PrintWriter;
 
 public class ProjectManager extends User implements Observer{
 
@@ -28,17 +30,9 @@ public class ProjectManager extends User implements Observer{
     }
 
     public void unassignDeveloper(Bug assign, Developer d){
-        int bugID = assign.getBugID();
-        for (int i = 0; i < d.getAssignedBugs().size(); i++) {
-            if (d.getAssignedBugs().elementAt(i).getBugID() == bugID ) {
-                d.getAssignedBugs().remove(i);
-            }
-        }
 
-        /*
-        Want to test this if it will work:
-        d.getAssignedBugs().remove(assign);
-         */
+        database.modifyBugInDB()
+
     }
 
     public void addProduct(String name, String description){
@@ -58,11 +52,28 @@ public class ProjectManager extends User implements Observer{
 
     public void removeFixedBug(Bug bug){
 
+        generateReport(bug);
     }
 
     public void update(String status) {}
 
-    public void update(String bugInfo, int bugID){}
+    void generateReport(Bug bugReportedOn) {
+
+        int elapsedTime;
+
+        try {
+            PrintWriter reportWriter = new PrintWriter(bugReportedOn.getName() + "-report.txt");
+            reportWriter.println("Product: " + product.getName());
+            reportWriter.println("Elapsed Time between submission & fixing: " + elapsedTime);
+            reportWriter.println("Developer Responsible: " + developer.getName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+        Setters & Getters Below
+     */
 
     public String getUsername() {
         return username;

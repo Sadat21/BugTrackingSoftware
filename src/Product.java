@@ -1,18 +1,25 @@
 import java.util.Vector;
 
 public class Product {
-    private Vector<Bug> bugs;
+
+    /**
+     * The description of the product
+     */
     private String description;
+
+    /**
+     *  The ID of the product
+     */
     private int productID;
+
+    /**
+     *  The name of the product
+     */
     private String name;
 
-    public Vector<Bug> getBugs() {
-        return bugs;
-    }
-
-    public void setBugs(Vector<Bug> bugs) {
-        this.bugs = bugs;
-    }
+    /**
+     * Setters and Getters below
+     */
 
     public String getDescription() {
         return description;

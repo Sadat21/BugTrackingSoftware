@@ -3,24 +3,44 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Developer extends User implements Subject{
-    private Vector<Bug> assignedBugs;
+
+    /**
+     *  The ID of the developer
+     */
     private int developerID;
+
+    /**
+     *  The username of the developer
+     */
     private String username;
+
+    /**
+     *  The password of the developer
+     */
     private String password;
+
+    /**
+     *  The ArrayList for observers
+     */
     private ArrayList<Observer> observers;
 
-    public void updateBug(Bug bug, String updateStatus){
-        bug.setBugStatus(updateStatus);
+
+    Vector<Bug> modifyBug(Bug bug, String updateInfo, int position){
+        bug.setBugStatus(updateInfo);
+        Vector<Bug> updatedList = database.modifyBugInDB(bug, position);
+        return updatedList;
     }
 
-    public void reportFixedBug(Bug bug){
+    public boolean reportFixedBug(Bug bug){
         bug.setFixed(true);
         Date todayDate = new Date();
         bug.setFixDate(todayDate);
-        assignedBugs.remove(bug);
+        return
     }
-    public void browseAssignments(){
 
+    Vector<Bug>  browseAssignments(){
+        database.browseAssignedBugs(developerID);
+        return assignedBugs;
     }
 
     public void registerObserver(Observer o){
@@ -35,13 +55,9 @@ public class Developer extends User implements Subject{
 
     public void notifyAllObservers(){}
 
-    public Vector<Bug> getAssignedBugs() {
-        return assignedBugs;
-    }
-
-    public void setAssignedBugs(Vector<Bug> assignedBugs) {
-        this.assignedBugs = assignedBugs;
-    }
+    /*
+        Getters & Setters below
+     */
 
     public int getDeveloperID() {
         return developerID;

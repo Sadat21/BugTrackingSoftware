@@ -1,21 +1,69 @@
 import java.util.Date;
 
 /**
- * Created by Sadat Msi on 11/12/2017.
- * and Mark & Harjee
+ * The bug entity class
  */
 public class Bug {
+
+    /**
+     * The name of the bug
+     */
     private String name;
+
+    /**
+     *  The date the bug was reported
+     */
     private Date date;
+
+    /**
+     *  The date the bug was fixed
+     */
     private Date fixDate;
+
+    /**
+     *  A boolean to determine whether the bug is fixed or not
+     */
     private boolean isFixed;
+
+    /**
+     *  The category of bug
+     */
     private String category;
+
+    /**
+     *  The critical importance of the bug
+     */
     private String importance;
+
+    /**
+     *  The description of the bug
+     */
     private String description;
+
+    /**
+     *  The status of the bug
+     */
     private String bugStatus;
+
+    /**
+     *  The ID of the bug
+     */
     private int bugID;
+
+    /**
+     *  Whether the bug is valid or a fake report/troll
+     */
     private boolean isValid;
+
+    /**
+     *  The ID of the developer
+     */
     private int developerID;
+
+
+    /*
+     * Setters & Getters below
+     */
 
     public String getName() {
         return name;
