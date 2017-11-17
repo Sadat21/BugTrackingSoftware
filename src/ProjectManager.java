@@ -2,17 +2,23 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.PrintWriter;
 
-public class ProjectManager extends User implements Observer{
+public class ProjectManager extends User {
 
     private String username;
     private String password;
     private int managerID;
-    private ArrayList<Subject> subjects;
 
-    public void browseBugReports(){}
-    public void approveBugReport(Bug reportedBug){
-        reportedBug.setValid(true);
+    public String[] browseAllBugsInProduct(int productID){
+        String[] allBugsInProduct = database.returnAllProductBugs(productID);
+        return allBugsInProduct;
     }
+
+    public boolean approveBugReport(int bugID){
+
+        boolean isApproved = database.modifyBugInDB(bugID, "Fixed", 5);
+        return isApproved;
+    }
+
     public void addDeveloper(String username, String password){
         Developer newDeveloper = new Developer();
         newDeveloper.setUsername(username);
@@ -20,54 +26,50 @@ public class ProjectManager extends User implements Observer{
         database.addDeveloperToDB(newDeveloper);
     }
 
-    public void removeDeveloper(Developer d){
-        database.removeDeveloperFromDB(d);
+    public void removeDeveloper(int developerID){
+        database.removeDeveloperFromDB(developerID);
     }
 
-    public void assignDeveloper(Bug assign, Developer d){
-        assign.setDeveloperID(d.getDeveloperID());
-        d.getAssignedBugs().add(assign);
+    public boolean assignDeveloper(int bugID, int developerID){
+        Integer devID = developerID;
+        boolean isAssigned = database.modifyBugInDB(bugID, devID.toString(), 6);
+        return isAssigned;
     }
 
-    public void unassignDeveloper(Bug assign, Developer d){
-
-        database.modifyBugInDB()
-
-    }
-
-    public void addProduct(String name, String description){
+    public boolean addProduct(String name, String description){
         Product newProduct = new Product();
         newProduct.setName(name);
         newProduct.setDescription(description);
-        database.addProductToDB(newProduct);
+        boolean isAdded = database.addProductToDB(newProduct);
+        return isAdded;
     }
-    public void removeProduct(Product p){
-        database.removeProductFromDB(p.getProductID());
-    }
-
-    public void modifyProduct(Product p, String updateInfo){
-        p.setDescription(updateInfo);
-        database.modifyProductInDB(p.getProductID(), updateInfo);
+    public boolean removeProduct(int productID){
+        boolean isRemoved = database.removeProductFromDB(productID);
+        return isRemoved;
     }
 
-    public void removeFixedBug(Bug bug){
-        
-        generateReport(bug);
+    public boolean modifyProduct(int productID, String updateInfo, int position){
+        boolean isModified = database.modifyProductInDB(productID, updateInfo, position);
+        return isModified;
     }
 
-    public void update(String status) {
-        //
+    public boolean removeFixedBug(int bugID){
+
+        boolean isRemoved = database.removeBugFromDB(bugID);
+        if (isRemoved) {
+            generateReport(bug);
+        }
     }
 
-    void generateReport(Bug bugReportedOn) {
+    void generateReport(int bugID, String productName, String bugName, int developerID) {
 
         int elapsedTime;
 
         try {
-            PrintWriter reportWriter = new PrintWriter(bugReportedOn.getName() + "-report.txt");
-            reportWriter.println("Product: " + product.getName());
+            PrintWriter reportWriter = new PrintWriter(bugName + "-report.txt");
+            reportWriter.println("Product: " + productName);
             reportWriter.println("Elapsed Time between submission & fixing: " + elapsedTime);
-            reportWriter.println("Developer Responsible: " + developer.getName);
+            reportWriter.println("Developer Responsible: " + developerID);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -100,14 +102,5 @@ public class ProjectManager extends User implements Observer{
     public void setManagerID(int managerID) {
         this.managerID = managerID;
     }
-
-    public ArrayList<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(ArrayList<Subject> subjects) {
-        this.subjects = subjects;
-    }
-
 
 }

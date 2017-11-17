@@ -21,11 +21,6 @@ public class Bug {
     private Date fixDate;
 
     /**
-     *  A boolean to determine whether the bug is fixed or not
-     */
-    private boolean isFixed;
-
-    /**
      *  The category of bug
      */
     private String category;
@@ -49,11 +44,6 @@ public class Bug {
      *  The ID of the bug
      */
     private int bugID;
-
-    /**
-     *  Whether the bug is valid or a fake report/troll
-     */
-    private boolean isValid;
 
     /**
      *  The ID of the developer
@@ -87,14 +77,6 @@ public class Bug {
 
     public void setFixDate(Date fixDate) {
         this.fixDate = fixDate;
-    }
-
-    public boolean isFixed() {
-        return isFixed;
-    }
-
-    public void setFixed(boolean fixed) {
-        isFixed = fixed;
     }
 
     public String getCategory() {
@@ -137,13 +119,7 @@ public class Bug {
         this.bugID = bugID;
     }
 
-    public boolean isValid() {
-        return isValid;
-    }
 
-    public void setValid(boolean valid) {
-        isValid = valid;
-    }
 
     public int getDeveloperID() {
         return developerID;

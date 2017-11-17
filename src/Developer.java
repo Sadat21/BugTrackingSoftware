@@ -2,9 +2,7 @@ import java.util.Vector;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Developer extends User implements Subject{
-
-    Vector<Bug> assignedBugs;
+public class Developer extends User {
 
     /**
      *  The ID of the developer
@@ -24,48 +22,17 @@ public class Developer extends User implements Subject{
     /**
      *  The ArrayList for observers
      */
-    private ArrayList<Observer> observers;
 
-
-    Vector<Bug> modifyBug(Bug bug, String updateInfo, int position){
-        bug.setBugStatus(updateInfo);
-        Vector<Bug> updatedList = database.modifyBugInDB(bug, position);
-        return updatedList;
+    public boolean modifyBug(int bugID, String updateInfo, int position){
+        boolean success = database.modifyBugInDB(bugID, updateInfo, position);
+        return success;
     }
 
-    public boolean reportFixedBug(Bug bug){
-        bug.setFixed(true);
-        Date todayDate = new Date();
-        bug.setFixDate(todayDate);
-        return
-    }
-
-    Vector<Bug>  browseAssignments(){
-        database.browseAssignedBugs(developerID);
+    String[]  browseAssignments(int developerID){
+        String[] assignedBugs = database.browseAssignedBugs(developerID);
         return assignedBugs;
     }
 
-    public void registerObserver(Observer o){
-        observers.add(o);
-
-        for (int i = 0; i < assignedBugs.size(); i++ ) {
-            o.update(assignedBugs.elementAt(i).getBugStatus());
-        }
-    }
-    public void removeObserver(Observer o){
-        observers.remove(o);
-    }
-
-    public void notifyAllObservers(){
-        for(int i = 0; i < observers.size(); i++)
-        {
-            Observer o = observers.get(i);
-
-            for (int j = 0; j < assignedBugs.size(); j++ ) {
-                o.update(assignedBugs.elementAt(i).getBugStatus());
-            }
-        }
-    }
 
     /*
         Getters & Setters below

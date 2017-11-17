@@ -2,6 +2,8 @@ import java.util.Vector;
 
 public class Product {
 
+    Vector<Bug> productBugs;
+
     /**
      * The description of the product
      */
